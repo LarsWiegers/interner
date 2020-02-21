@@ -3,7 +3,7 @@
         <div class="w-full max-w-6xl mx-auto sm:flex sm:justify-between sm:items-center sm:px-4 sm:py-3">
             <div class="flex justify-between items-center px-4 py-3 sm:p-0">
                 <div>
-                    <inertia-link class="navbar-brand" href="/">Inertia.js</inertia-link>
+                    <inertia-link class="navbar-brand" href="/">Interner</inertia-link>
                 </div>
 
                 <div class="sm:hidden">
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    data() { 
+    data() {
         return {
             isOpen: false,
         }

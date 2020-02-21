@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InternshipController;
 use Inertia\Inertia;
 
 /*
@@ -13,9 +14,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', [InternshipController::class, 'index'])->name('internship.index');
 
 Route::get('/about', function () {
     return Inertia::render('About');
@@ -24,3 +23,5 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 });
+
+Route::get('/internships/{internship}', [InternshipController::class, 'show'])->name('internship.show');
