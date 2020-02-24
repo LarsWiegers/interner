@@ -15,6 +15,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', [InternshipController::class, 'index'])->name('internship.index');
+Route::get('/internships/add', [InternshipController::class, 'create'])->name('internship.create');
+Route::post('/internships', [InternshipController::class, 'store'])->name('internship.store');
 
 Route::get('/about', function () {
     return Inertia::render('About');

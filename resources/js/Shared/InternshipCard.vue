@@ -1,9 +1,9 @@
 <template>
     <li class="row">
-        <a class=" flex content-center justify-between my-4" v-bind:href="internship.url">
+        <inertia-link class="flex content-center justify-between my-4" v-bind:href="internship.url">
             <h2 class="block">{{internship.title}}</h2>
         <internship-pill class="internship-pill" :state="internship.state"></internship-pill>
-        </a>
+        </inertia-link>
     </li>
 </template>
 <script>

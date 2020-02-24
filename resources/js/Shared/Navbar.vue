@@ -17,7 +17,7 @@
             </div>
 
             <nav :class="isOpen ? 'block' : 'hidden'" class="px-2 pb-4 sm:flex sm:p-0">
-                <inertia-link class="block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" href="/about">About</inertia-link>
+                <inertia-link class="block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" href="/internships/add">Add</inertia-link>
                 <inertia-link class="mt-1 block px-2 py-1 text-gray-700 font-semibold rounded hover:bg-gray-100 focus:bg-gray-100 focus:outline-none sm:mt-0 sm:ml-2" href="/contact">Contact</inertia-link>
             </nav>
         </div>

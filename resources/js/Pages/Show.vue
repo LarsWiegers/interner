@@ -16,9 +16,6 @@
         props: {
             internship: Object
         },
-        mounted() {
-            console.log(this.internship);
-        },
         components: {
             'internship-pill': InternshipPill,
             Layout,

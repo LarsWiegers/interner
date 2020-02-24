@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\States\Internship\NotAppliedYetInternshipState;
+use http\Client\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
 use App\Internship;
 
 class InternshipController extends Controller
 {
+
+    public function create()
+    {
+        return Inertia::render('Add');
+    }
+
+
     public function index()
     {
         $internships = Internship::all()->map(function ($internship) {
@@ -17,6 +27,20 @@ class InternshipController extends Controller
         return Inertia::render('Index', [
             'internships' => $internships
         ]);
+    }
+
+    public function store(\Illuminate\Http\Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        $validated['state_class'] = NotAppliedYetInternshipState::class;
+
+        $internship = Internship::create($validated);
+        $internship->save();
+
+        return Redirect::route('internship.show', ['internship' => $internship]);
     }
 
     public function show(Internship $internship)
