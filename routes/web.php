@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\InternshipController;
 use Inertia\Inertia;
 
@@ -19,6 +20,9 @@ Route::get('/internships/states', [InternshipController::class, 'states'])->name
 Route::get('/internships/add', [InternshipController::class, 'create'])->name('internship.create');
 Route::put('/internships/{id}', [InternshipController::class, 'update'])->name('internship.update');
 Route::post('/internships', [InternshipController::class, 'store'])->name('internship.store');
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
 
 Route::get('/about', function () {
     return Inertia::render('About');

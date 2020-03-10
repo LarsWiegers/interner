@@ -23,6 +23,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -31,7 +64,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      realInternship: this.internship
+      realInternship: this.internship,
+      newComment: '',
+      comments: this.internship.comments
     };
   },
   components: {
@@ -46,6 +81,17 @@ __webpack_require__.r(__webpack_exports__);
       internship.state = state.newState;
       axios.put('/internships/' + internship.id, internship).then(function (internship) {
         _this.realInternship = internship.data;
+        _this.comments = internship.data.comments;
+      });
+    },
+    addComment: function addComment() {
+      var _this2 = this;
+
+      axios.post('/comments/', {
+        'internship_id': this.realInternship.id,
+        'text': this.newComment
+      }).then(function (comment) {
+        _this2.comments.push(comment.data);
       });
     }
   }
@@ -144,7 +190,126 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.realInternship.description))])
+    _c("p", [_vm._v(_vm._s(_vm.realInternship.description))]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "font-sans" },
+      [
+        _vm._l(_vm.comments, function(comment) {
+          return _c(
+            "div",
+            { staticClass: "bg-white my-8 border border-grey-light" },
+            [
+              _c("div", { staticClass: "flex pt-4 px-4" }, [
+                _c("div", { staticClass: "px-2 pt-2 flex-grow" }, [
+                  _c("header", [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "text-xs text-grey flex items-center my-1"
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass:
+                              "h-4 w-4 mr-1 feather feather-calendar",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              width: "24",
+                              height: "24",
+                              viewBox: "0 0 24 24",
+                              fill: "none",
+                              stroke: "currentColor",
+                              "stroke-width": "2",
+                              "stroke-linecap": "round",
+                              "stroke-linejoin": "round"
+                            }
+                          },
+                          [
+                            _c("rect", {
+                              attrs: {
+                                x: "3",
+                                y: "4",
+                                width: "18",
+                                height: "18",
+                                rx: "2",
+                                ry: "2"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("line", {
+                              attrs: { x1: "16", y1: "2", x2: "16", y2: "6" }
+                            }),
+                            _vm._v(" "),
+                            _c("line", {
+                              attrs: { x1: "8", y1: "2", x2: "8", y2: "6" }
+                            }),
+                            _vm._v(" "),
+                            _c("line", {
+                              attrs: { x1: "3", y1: "10", x2: "21", y2: "10" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("span", { attrs: { title: comment.created_at } }, [
+                          _vm._v(_vm._s(comment.how_long_ago))
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("article", { staticClass: "py-4 text-grey-darkest" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(comment.text) +
+                        "\n                    "
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-grey-lighter" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newComment,
+                expression: "newComment"
+              }
+            ],
+            staticClass: "w-full border border-blue rounded",
+            domProps: { value: _vm.newComment },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newComment = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex justify-end items-center mt-2" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "py-2 px-4 bg-white border border-blue rounded rounded-full\n      hover:bg-blue float-right",
+                on: { click: _vm.addComment }
+              },
+              [_vm._v("\n                    Add button\n                ")]
+            )
+          ])
+        ])
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []

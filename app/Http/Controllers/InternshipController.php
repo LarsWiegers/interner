@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\States\Internship\InternshipState;
 use App\States\Internship\NotAppliedYetInternshipState;
 use http\Client\Request;
@@ -75,10 +76,16 @@ class InternshipController extends Controller
             $userFriendlyTitle = InternshipState::get_title($class);
             if($userFriendlyTitle == $validated['state']) {
                 $validated['state_class'] = str_replace(".php","", $class);
+                Comment::create([
+                    'text' => "You have updated the internship to the " . $userFriendlyTitle . " state!",
+                    'internship_id' => $id
+                ]);
                 continue;
             }
         }
         $internship = Internship::find($id)->fill($validated);
+
+
         $internship->save();
         return $this->getPassableInternship($internship);
     }
@@ -96,7 +103,8 @@ class InternshipController extends Controller
             'id',
             'title',
             'description',
-            'state'
+            'state',
+            'comments'
         );
         $properties['url'] = Url::route('internship.show', ['internship' => $internship]);
         return $properties;

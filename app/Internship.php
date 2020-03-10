@@ -36,4 +36,15 @@ class Internship extends Model
         return $state;
     }
 
+    /**
+     * Get all comments that belong to this comment
+     */
+    public function getCommentsAttribute() {
+        $comments = Comment::where('internship_id', $this->id)->get();
+        foreach($comments as $comment) {
+            $comment->how_long_ago = $comment->created_at->diffForHumans();
+        }
+        return $comments;
+    }
+
 }
