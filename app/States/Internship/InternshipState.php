@@ -12,13 +12,22 @@ abstract class InternshipState
 
     public function title(): string
     {
-        $parts = explode("\\", get_class($this));
+        return self::get_title($this);
+    }
+
+    public static function get_title($class): string
+    {
+        if(is_object($class)) {
+            $class = get_class($class);
+        }
+        $parts = explode("\\", $class);
         $size = sizeof($parts);
         $classname = $parts[$size - 1];
         $withSpacesBeforeCaps = preg_replace('/(?<!\ )[A-Z]/', ' $0', $classname);
         $removedFirstSpace = substr($withSpacesBeforeCaps, 1);
         $removedWordState = str_replace("Internship", "", $removedFirstSpace);
         $removedWordState = str_replace("State", "", $removedWordState);
+        $removedWordState = str_replace(".php", "", $removedWordState);
         $trimmed = trim($removedWordState);
         $lowercase = strtolower($trimmed);
         return $lowercase;

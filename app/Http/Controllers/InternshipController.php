@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\States\Internship\InternshipState;
 use App\States\Internship\NotAppliedYetInternshipState;
 use http\Client\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
@@ -15,6 +17,21 @@ class InternshipController extends Controller
     public function create()
     {
         return Inertia::render('Add');
+    }
+
+    public function states()
+    {
+        $classes = Internship::getAllStateClasses();
+
+        $parsedClassNames = [];
+        foreach($classes as $class) {
+            $className = InternshipState::get_title($class);
+            if($className != "") {
+                $parsedClassNames[] = $className;
+            }
+        }
+
+        return json_encode($parsedClassNames);
     }
 
 
@@ -41,6 +58,29 @@ class InternshipController extends Controller
         $internship->save();
 
         return Redirect::route('internship.show', ['internship' => $internship]);
+    }
+
+    public function update(\Illuminate\Http\Request $request, $id)
+    {
+        $validated = $request->validate([
+            'id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'state' => Rule::in(json_decode($this->states()))
+        ]);
+
+        $classes = Internship::getAllStateClasses();
+
+        foreach($classes as $class) {
+            $userFriendlyTitle = InternshipState::get_title($class);
+            if($userFriendlyTitle == $validated['state']) {
+                $validated['state_class'] = str_replace(".php","", $class);
+                continue;
+            }
+        }
+        $internship = Internship::find($id)->fill($validated);
+        $internship->save();
+        return $this->getPassableInternship($internship);
     }
 
     public function show(Internship $internship)

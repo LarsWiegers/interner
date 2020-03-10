@@ -2,7 +2,9 @@
     <li class="row">
         <inertia-link class="flex content-center justify-between my-4" v-bind:href="internship.url">
             <h2 class="block">{{internship.title}}</h2>
-        <internship-pill class="internship-pill" :state="internship.state"></internship-pill>
+        <internship-pill class="internship-pill"
+                         :should-show-dropdown="false"
+                         :state="internship.state"></internship-pill>
         </inertia-link>
     </li>
 </template>
