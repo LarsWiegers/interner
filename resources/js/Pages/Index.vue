@@ -1,7 +1,11 @@
 <template>
   <layout>
+      <main class="w-full p-8 mx-auto">
+          <section class="shadow">
+              <internship-card v-for="internship in internships" v-bind:key="internship.id" :internship="internship"></internship-card>
+          </section>
+      </main>
     <ul>
-        <internship-card v-for="internship in internships" v-bind:key="internship.id" :internship="internship"></internship-card>
     </ul>
   </layout>
 </template>

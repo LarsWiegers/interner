@@ -19,6 +19,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53,16 +57,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     internship: Object
   },
   data: function data() {
-    return {};
+    return {
+      dropdownOpen: false
+    };
   },
   components: {
     'internship-pill': _InternshipPill__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    toggleDropdown: function toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+    }
   }
 });
 
@@ -145,16 +174,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("layout", [
-    _c(
-      "ul",
-      _vm._l(_vm.internships, function(internship) {
-        return _c("internship-card", {
-          key: internship.id,
-          attrs: { internship: internship }
-        })
-      }),
-      1
-    )
+    _c("main", { staticClass: "w-full p-8 mx-auto" }, [
+      _c(
+        "section",
+        { staticClass: "shadow" },
+        _vm._l(_vm.internships, function(internship) {
+          return _c("internship-card", {
+            key: internship.id,
+            attrs: { internship: internship }
+          })
+        }),
+        1
+      )
+    ]),
+    _vm._v(" "),
+    _c("ul")
   ])
 }
 var staticRenderFns = []
@@ -179,34 +213,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "li",
-    { staticClass: "row" },
-    [
-      _c(
-        "inertia-link",
-        {
-          staticClass: "flex content-center justify-between my-4",
-          attrs: { href: _vm.internship.url }
-        },
-        [
-          _c("h2", { staticClass: "block" }, [
-            _vm._v(_vm._s(_vm.internship.title))
-          ]),
-          _vm._v(" "),
-          _c("internship-pill", {
-            staticClass: "internship-pill",
-            attrs: {
-              "should-show-dropdown": false,
-              state: _vm.internship.state
-            }
-          })
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("article", { staticClass: "border-b" }, [
+    _c(
+      "div",
+      { staticClass: "border-l-2 border-transparent overflow-hidden" },
+      [
+        _c(
+          "header",
+          {
+            staticClass:
+              "flex justify-between p-5 pl-8 pr-8 cursor-pointer select-none"
+          },
+          [
+            _c(
+              "span",
+              {
+                staticClass:
+                  "text-grey-darkest font-thin text-xl flex justify-between flex-1"
+              },
+              [
+                _c("span", { on: { click: _vm.toggleDropdown } }, [
+                  _vm._v(_vm._s(_vm.internship.title))
+                ]),
+                _vm._v(" "),
+                _c("internship-pill", {
+                  staticClass: "internship-pill flex items-end mr-4",
+                  attrs: {
+                    "should-show-dropdown": false,
+                    state: _vm.internship.state
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "rounded-full border border-grey w-8 h-8 flex items-center justify-center",
+                on: { click: _vm.toggleDropdown }
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    attrs: {
+                      "aria-hidden": "true",
+                      "data-reactid": "266",
+                      fill: "none",
+                      height: "24",
+                      stroke: "#606F7B",
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      viewbox: "0 0 24 24",
+                      width: "24",
+                      xmlns: "http://www.w3.org/2000/svg"
+                    }
+                  },
+                  [_c("polyline", { attrs: { points: "6 9 12 15 18 9" } })]
+                )
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "transition duration-300 origin-top-left transform",
+            class: { "h-0": !_vm.dropdownOpen, "h-100": _vm.dropdownOpen }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "pl-8 pr-8 pb-5 text-grey-darkest" },
+              [
+                _c("p", { staticClass: "mb-4" }, [
+                  _vm._v(_vm._s(_vm.internship.description))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass:
+                      "flex-no-shrink p-2 border-2 rounded text-grey border-grey hover:bg-grey",
+                    attrs: { href: "/internships/" + _vm.internship.id }
+                  },
+                  [_vm._v("View")]
+                )
+              ],
+              1
+            )
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -230,12 +334,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", { staticClass: "container relative" }, [
+  return _c("span", { staticClass: "relative" }, [
     _c(
       "button",
       {
-        staticClass: " hover:bg-blue-700 text-white py-2 px-2 rounded-full",
-        class: "bg-" + _vm.state.colour + "-500"
+        staticClass:
+          "text-white py-2 px-2 rounded-full text-xl transition-background duration-300",
+        class:
+          "bg-" +
+          _vm.state.colour +
+          "-500 " +
+          " hover:bg-" +
+          _vm.state.colour +
+          "-700"
       },
       [
         _vm._v("\n        " + _vm._s(_vm.state.title) + "\n        "),

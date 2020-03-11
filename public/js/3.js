@@ -334,12 +334,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", { staticClass: "container relative" }, [
+  return _c("span", { staticClass: "relative" }, [
     _c(
       "button",
       {
-        staticClass: " hover:bg-blue-700 text-white py-2 px-2 rounded-full",
-        class: "bg-" + _vm.state.colour + "-500"
+        staticClass:
+          "text-white py-2 px-2 rounded-full text-xl transition-background duration-300",
+        class:
+          "bg-" +
+          _vm.state.colour +
+          "-500 " +
+          " hover:bg-" +
+          _vm.state.colour +
+          "-700"
       },
       [
         _vm._v("\n        " + _vm._s(_vm.state.title) + "\n        "),

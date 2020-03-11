@@ -1,7 +1,7 @@
 <template>
-    <span class="container relative">
-        <button v-bind:class="'bg-'+ state.colour + '-500'"
-                class=" hover:bg-blue-700 text-white py-2 px-2 rounded-full">
+    <span class="relative">
+        <button v-bind:class="'bg-'+ state.colour + '-500 ' + ' hover:bg-' + state.colour + '-700'"
+                class="text-white py-2 px-2 rounded-full text-xl transition-background duration-300">
             {{state.title}}
             <button v-on:click="toggleDropdown" v-bind:class="{'hidden': !shouldShowDropdown}"><i class="fas fa-chevron-down"></i></button>
         </button>
